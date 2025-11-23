@@ -1,10 +1,10 @@
 {
   "name": "@sigma/catai",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "exports": "./catai.ts",
   "license": "MIT",
   "imports": {
-    "@sigma/parse": "jsr:@sigma/parse@^0.17.1",
+    "@sigma/parse": "jsr:@sigma/parse@^0.18.0",
     "@std/fs": "jsr:@std/fs@^1.0.20",
     "@std/path": "jsr:@std/path@^1.1.3"
   }

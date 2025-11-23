@@ -1,6 +1,14 @@
 import { walk } from "@std/fs/walk";
 import { globToRegExp, relative, resolve } from "@std/path";
-import { Args, argument, cli, description, required, type } from "@sigma/parse";
+import {
+  Args,
+  argument,
+  cli,
+  description,
+  required,
+  short,
+  type,
+} from "@sigma/parse";
 
 const IGNORED = new Set([
   "node_modules",
@@ -64,6 +72,7 @@ const TOKEN_LIMITS: Record<string, number> = {
 })
 class CataiArgs extends Args {
   @description("Write to file instead of stdout")
+  @short()
   @type("string")
   output?: string;
 
@@ -88,6 +97,7 @@ class CataiArgs extends Args {
   yes = false;
 
   @description("Copy output to clipboard (auto-detects Wayland/X11)")
+  @short()
   copy = false;
 
   @argument({ rest: true, description: "Paths to concatenate" })

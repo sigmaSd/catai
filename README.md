@@ -96,4 +96,4 @@ limit**.
 
 ## License
 
-MIT License © Your Name
+MIT License

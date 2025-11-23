@@ -4,6 +4,37 @@
 suitable for LLM (Large Language Model) contexts. It intelligently handles file
 inclusion/exclusion, large files, and can copy the result to your clipboard.
 
+```
+catai deno.json a.ts
+
+📂 Included Files:
+├── 📄 a.ts
+└── 📄 deno.json
+
+📊 Summary:
+   Files: 2
+   Size: 299B
+   Tokens: ~86
+
+   claude: ✅  gpt4: ✅  gpt4o: ✅  gpt3: ✅  gemini: ✅
+
+-- file: deno.json --
+{
+  "name": "@sigma/catai",
+  "version": "1.0.1",
+  "exports": "./catai.ts",
+  "license": "MIT",
+  "imports": {
+    "@sigma/parse": "jsr:@sigma/parse@^0.17.1",
+    "@std/fs": "jsr:@std/fs@^1.0.20",
+    "@std/path": "jsr:@std/path@^1.1.3"
+  }
+}
+
+-- file: a.ts --
+console.log(4)
+```
+
 ---
 
 ## Features

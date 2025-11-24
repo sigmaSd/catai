@@ -125,6 +125,18 @@ limit**.
 
 ---
 
+Tips:
+
+- This allows you to paste as file, llm chat will recognize this as file instead
+  of text and presnet it nicly in the UI (somehow it doenst seem to be a better
+  way on linux other then spawning the file manager)
+
+```bash
+catai file1 file2 >/tmp/o && nautilus /tmp/o # then copy the file from nautilus
+```
+
+---
+
 ## License
 
 MIT License

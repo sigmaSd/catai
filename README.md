@@ -132,7 +132,7 @@ of text and present it nicly in the UI (somehow there doesn't seem to be a
 better way on linux other then spawning the file manager)
 
 ```bash
-catai file1 file2 >/tmp/o && nautilus /tmp/o # then copy the file from nautilus
+catai file1 file2 >/tmp/o.txt && nautilus /tmp/o.txt # then copy the file from nautilus
 ```
 
 ---

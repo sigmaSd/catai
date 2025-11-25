@@ -77,7 +77,6 @@ export function parseArgs(args: string[]): CataiOptions {
 
   // Validate required arguments
   if (options.paths.length === 0) {
-    console.error("Error: At least one path is required");
     printHelp();
     process.exit(1);
   }

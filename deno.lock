@@ -1,7 +1,7 @@
 {
   "version": "5",
   "specifiers": {
-    "jsr:@sigma/deno-compat@0.3": "0.3.0",
+    "jsr:@sigma/deno-compat@0.6": "0.6.0",
     "jsr:@sigma/parse@0.18": "0.18.0",
     "jsr:@std/fs@^1.0.20": "1.0.20",
     "jsr:@std/internal@^1.0.12": "1.0.12",
@@ -9,8 +9,8 @@
     "npm:@types/node@*": "24.2.0"
   },
   "jsr": {
-    "@sigma/deno-compat@0.3.0": {
-      "integrity": "0c4365b7d345990b71fb71ae4acbb091baf790820f97a2282ab549754b564b4e"
+    "@sigma/deno-compat@0.6.0": {
+      "integrity": "63c364bbc4df26525a4476c05c1dd10cd9f5eb2e377b7e69612b5d0963edd2fc"
     },
     "@sigma/parse@0.18.0": {
       "integrity": "b5a13b0e808a0e9a69581ac92ca9d0efab2649064366ff94222455ceb381da2f"
@@ -45,7 +45,7 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@sigma/deno-compat@0.3",
+      "jsr:@sigma/deno-compat@0.6",
       "jsr:@sigma/parse@0.18",
       "jsr:@std/fs@^1.0.20",
       "jsr:@std/path@^1.1.3"

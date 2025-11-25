@@ -52,10 +52,15 @@ console.log(4)
 
 ## Installation
 
-Requires **Deno**.
-
 ```bash
 deno install -Afg --name catai jsr:@sigma/catai
+```
+
+You can also run with node or bun using
+
+```
+npx xjsr @sigma/catai
+bunx --bun xjsr @sigma/catai
 ```
 
 ---

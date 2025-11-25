@@ -1,14 +1,9 @@
+import "@sigma/deno-compat";
+import { isDeno } from "@sigma/deno-compat/runtime";
 import { walk } from "@std/fs/walk";
 import { globToRegExp, relative, resolve } from "@std/path";
-import {
-  Args,
-  argument,
-  cli,
-  description,
-  required,
-  short,
-  type,
-} from "@sigma/parse";
+import type { CataiOptions } from "./cli/types.ts";
+import process from "node:process";
 
 const IGNORED = new Set([
   "node_modules",
@@ -64,48 +59,6 @@ const TOKEN_LIMITS: Record<string, number> = {
   "gemini": 1000000,
 };
 
-@cli({
-  name: "catai",
-  description: "Concatenate files for LLM context",
-  defaultCommand: "help",
-  color: true,
-})
-class CataiArgs extends Args {
-  @description("Write to file instead of stdout")
-  @short()
-  @type("string")
-  output?: string;
-
-  @description(
-    "Include only files matching these glob patterns (e.g., '*.ts' '**/*.md')",
-  )
-  @type("string[]")
-  include?: string[];
-
-  @description(
-    "Exclude files matching these glob patterns (e.g., '**/*.test.js')",
-  )
-  @type("string[]")
-  exclude?: string[];
-
-  @description(
-    "Max file size before warning (default: 100KB, e.g. '1mb', '500k')",
-  )
-  maxSize = "100k";
-
-  @description("Skip all prompts, include large files")
-  yes = false;
-
-  @description("Copy output to clipboard (auto-detects Wayland/X11)")
-  @short()
-  copy = false;
-
-  @argument({ rest: true, description: "Paths to concatenate" })
-  @required()
-  @type("string[]")
-  paths!: string[];
-}
-
 function estimateTokens(text: string): number {
   return Math.ceil(text.length / 3.5);
 }
@@ -130,7 +83,8 @@ async function isTextFile(path: string): Promise<boolean> {
     let nullCount = 0;
     for (const byte of sample) if (byte === 0) nullCount++;
     return nullCount / sample.length < 0.1;
-  } catch {
+  } catch (e) {
+    console.error(e);
     return false;
   }
 }
@@ -270,7 +224,17 @@ function buildTree(files: string[], baseDir: string): string {
   return lines.join("\n");
 }
 
-const opts = CataiArgs.parse(Deno.args);
+// Dynamic CLI parser import based on runtime
+let opts: CataiOptions;
+
+if (isDeno) {
+  const { parseArgs } = await import("./cli/deno.ts");
+  opts = parseArgs(Deno.args);
+} else {
+  const { parseArgs } = await import("./cli/node.ts");
+  opts = parseArgs(process.argv.slice(2));
+}
+
 const paths = opts.paths;
 
 const maxFileSize = parseMaxSize(opts.maxSize);
@@ -300,13 +264,13 @@ if (opts.exclude && opts.exclude.length > 0) {
     !matchesPattern(file, opts.exclude!, baseDir)
   );
 }
-
 // Check file sizes and prompt for large files
 const filesToInclude: string[] = [];
 const skippedFiles: string[] = [];
 
 for (const file of filteredFiles) {
   if (!await isTextFile(file)) continue;
+  console.log("file", file);
 
   const stat = await Deno.stat(file);
   const name = relative(baseDir, file) || file;

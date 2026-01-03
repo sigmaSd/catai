@@ -140,6 +140,25 @@ better way on linux other then spawning the file manager)
 catai file1 file2 >/tmp/o.txt && nautilus /tmp/o.txt # then copy the file from nautilus
 ```
 
+I even have this convenience function in fish:
+
+```fish
+function nn
+    set tmp /tmp/nn.txt
+    
+    # Test whether stdin has data
+    if test -t 0
+        # No stdin → use wl-paste
+        wl-paste > $tmp
+    else
+        # Stdin provided → write stdin to file
+        cat - > $tmp
+    end
+    
+    nautilus $tmp
+end
+```
+
 ---
 
 ## License

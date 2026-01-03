@@ -59,8 +59,8 @@ deno install -Afg --name catai jsr:@sigma/catai
 You can also run with node or bun using
 
 ```
-npx xjsr @sigma/catai
-bunx --bun xjsr @sigma/catai
+npx rjsr @sigma/catai
+bunx rjsr @sigma/catai
 ```
 
 ---
